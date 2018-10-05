@@ -40,8 +40,16 @@ public:
 	//returns the max reading for that week 
 	float get_min_week(int week);
 
+	//prints out all the data for what has been inputed daily
+	void print_daily_summary();
+
+	//prints out all the data for what has been inputed weekly
+	void print_weekly_summary();
+
 	//reads in the blood sugar levels 
 	void read_in();
+
+	
 
 private:
 
@@ -51,8 +59,14 @@ private:
 	//the count of weks that have been stored 
 	int count_week = 0;
 
+	//the count of the readings for that day  
+	int bL_Count_Day[14] = { 0 };
+
+	//the count of weks that have been stored 
+	int bL_Count_week[2] = { 0 };
+
 	//the sum of the Blood sugar level inputed for all 14 days 
-	float sum_day[14] = {0};
+	float sum_day[14] = { 0 };
 
 	//the sum of the Blood sugar level inputed for the two weeks 
 	float sum_week[2] = { 0 };
