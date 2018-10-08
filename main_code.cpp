@@ -14,5 +14,6 @@ int main()
 {
 	Blood_S_L readings;
 	readings.read_in();
+	system("pause");
 	return 0; 
 }
