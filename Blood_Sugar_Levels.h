@@ -54,34 +54,34 @@ public:
 private:
 
 	//the count of days that have been stored 
-	int count_day = 0;
+	short count_day;
 
 	//the count of weks that have been stored 
-	int count_week = 0;
+	short count_week;
 
 	//the count of the readings for that day  
-	int bL_Count_Day[14] = { 0 };
+	float bL_Count_Day[14];
 
 	//the count of weks that have been stored 
-	int bL_Count_week[2] = { 0 };
+	float bL_Count_week[2];
 
 	//the sum of the Blood sugar level inputed for all 14 days 
-	float sum_day[14] = { 0 };
+	float sum_day[14];
 
 	//the sum of the Blood sugar level inputed for the two weeks 
-	float sum_week[2] = { 0 };
+	float sum_week[2];
 
 	// the max reading for 14 days  
-	float max_day[14] = { 0 };
+	float max_day[14];
 
 	// the max reading for for the two weeks 
-	float max_week[2] = { 0 };
+	float max_week[2];
 
 	// the min reading for 14 days 
-	float min_day[14] = { 0 };
+	float min_day[14];
 
 	// the max reading for thw two weeks
-	float min_week[2] = { 0 };
+	float min_week[2];
 
 
 };
