@@ -46,8 +46,12 @@ public:
 	//prints out all the data for what has been inputed weekly
 	void print_weekly_summary();
 
+	//addeds to the sum of day and week 
+	void add_to_sum(float add);
+
 	//reads in the blood sugar levels 
 	void read_in();
+
 
 	
 
