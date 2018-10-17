@@ -52,10 +52,11 @@ public:
 	//addeds to the sum of day and week 
 	void add_to_sum(float add);
 
+	//findsDay of Week (x) with Biggest Day-to-Day Delta of VALID Readings 	(e.g. for which x in days 1 to 6, is | count[x]?count[x?1] | the greatest ? )
+	int delta();
+
 	//reads in the blood sugar levels 
 	void read_in();
-
-
 	
 
 private:

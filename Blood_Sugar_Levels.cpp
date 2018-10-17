@@ -87,6 +87,7 @@ void Blood_S_L::print_daily_summary()
 	}
 	cout << "the max of the readings for today is :" <<max_day[count_day] << endl;
 	cout << "the min of the readings for today is :" << min_day[count_day] << endl << endl;
+
 	cout << "******************************************************************************" << endl;
 }
 
@@ -104,7 +105,8 @@ void Blood_S_L::print_weekly_summary()
 		cout << "the sum of the readings for this week is :" << sum_week[count_week] << endl;
 	}
 	cout << "the max of the readings for this week is :" << max_week[count_week] << endl;
-	cout << "the min of the readings forfor this week is :" << min_week[count_week] << endl << endl;;
+	cout << "the min of the readings for this week is :" << min_week[count_week] << endl;
+	cout << "the min of the readings for this week is :" << delta() << endl << endl;
 	cout << "******************************************************************************" << endl;
 }
 
@@ -158,6 +160,24 @@ void Blood_S_L::add_to_sum(float add)
 	
 }
 
+int Blood_S_L::delta()
+{
+	float temp = 0;
+	int day;
+	if (count_day > 0)
+	{
+		for (int index = count_day; index > 0; index--)
+		{
+			if (bL_Count_Day[index] - bL_Count_Day[index - 1] > temp)
+			{
+				temp = bL_Count_Day[index] - bL_Count_Day[index - 1];
+				day = index;
+			}
+
+		}
+	}
+	return day;
+}
 //read-in 2 try 2
 void Blood_S_L::read_in()
 {
