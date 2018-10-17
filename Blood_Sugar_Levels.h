@@ -46,8 +46,15 @@ public:
 	//prints out all the data for what has been inputed weekly
 	void print_weekly_summary();
 
+	//prints out all the data for all day and week
+	void print_summary();
+
+	//addeds to the sum of day and week 
+	void add_to_sum(float add);
+
 	//reads in the blood sugar levels 
 	void read_in();
+
 
 	
 
@@ -66,10 +73,18 @@ private:
 	float bL_Count_week[2];
 
 	//the sum of the Blood sugar level inputed for all 14 days 
-	float sum_day[14];
+	float sum_day[14]; 
+	//??change to double then don't let sum_day go over FLT_MAX??
+
+	//counteds the number of time the sum of the Blood sugar level inputed for each day overflows  
+	float sum_day_overflow_counter[14];
 
 	//the sum of the Blood sugar level inputed for the two weeks 
 	float sum_week[2];
+	//??change to double then don't let sum_week go over FLT_MAX??
+
+	//counteds the number of time the sum of the Blood sugar level inputed for each week overflows  
+	float sum_week_overflow_counter[2];
 
 	// the max reading for 14 days  
 	float max_day[14];
