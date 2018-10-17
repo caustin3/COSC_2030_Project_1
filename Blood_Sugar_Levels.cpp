@@ -168,7 +168,7 @@ int Blood_S_L::delta()
 	{
 		for (int index = count_day; index > 0; index--)
 		{
-			if (bL_Count_Day[index] - bL_Count_Day[index - 1] > temp)
+			if ((bL_Count_Day[index] - bL_Count_Day[index - 1]) > temp)
 			{
 				temp = bL_Count_Day[index] - bL_Count_Day[index - 1];
 				day = index;
