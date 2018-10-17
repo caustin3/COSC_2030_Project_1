@@ -16,7 +16,7 @@ Blood_S_L::Blood_S_L()
 		sum_day[index] = 0;
 		max_day[index] = 0;
 		min_day[index] = FLT_MAX;
-		sum_day_overflow_counter[count_day] = 0;
+		sum_day_overflow_counter[index] = 0;
 	}
 	for (short index = 0; index < 2; index++)
 	{
@@ -24,7 +24,7 @@ Blood_S_L::Blood_S_L()
 		sum_week[index] = 0;
 		max_week[index] = 0;
 		min_week[index] = FLT_MAX;
-		sum_week_overflow_counter[count_week] = 0;
+		sum_week_overflow_counter[index] = 0;
 	}
 }
 
@@ -79,11 +79,11 @@ void Blood_S_L::print_daily_summary()
 	cout << "the number of the readings for today is :" << bL_Count_Day[count_day] << endl;
 	if (sum_day_overflow_counter[count_day]>0)
 	{
-		cout << "the sum of the readings for this week is the sum of : (" << FLT_MAX << "*" << sum_day_overflow_counter[count_day] << ")+" << sum_day[count_day] << endl;
+		cout << "the sum of the readings for today is the sum of : (" << FLT_MAX << "*" << sum_day_overflow_counter[count_day] << ") + " << sum_day[count_day] << endl;
 	}
 	else
 	{
-		cout << "the sum of the readings for this week is :" << sum_day[count_day] << endl;
+		cout << "the sum of the readings for today is :" << sum_day[count_day] << endl;
 	}
 	cout << "the max of the readings for today is :" <<max_day[count_day] << endl;
 	cout << "the min of the readings for today is :" << min_day[count_day] << endl << endl;
@@ -98,7 +98,7 @@ void Blood_S_L::print_weekly_summary()
 	cout << "the number of the readings for this week is :" << bL_Count_week[count_week] << endl;
 	if (sum_week_overflow_counter[count_week]>0)
 	{
-		cout << "the sum of the readings for this week is the sum of : (" << FLT_MAX << "*" << sum_week_overflow_counter[count_week] <<")+"<< sum_week[count_week] << endl;
+		cout << "the sum of the readings for this week is the sum of : (" << FLT_MAX << "*" << sum_week_overflow_counter[count_week] <<") + "<< sum_week[count_week] << endl;
 	}
 	else
 	{		
@@ -106,7 +106,7 @@ void Blood_S_L::print_weekly_summary()
 	}
 	cout << "the max of the readings for this week is :" << max_week[count_week] << endl;
 	cout << "the min of the readings for this week is :" << min_week[count_week] << endl;
-	cout << "the min of the readings for this week is :" << delta() << endl << endl;
+	cout << "the highest delta of the readings for this week was on day :" << delta() << endl << endl;
 	cout << "******************************************************************************" << endl;
 }
 
@@ -134,7 +134,7 @@ void Blood_S_L::add_to_sum(float add)
 		
 	}
 	//checks if the sum overflow the float by using (a+b)mod n = (a mod n + b mod n) mod n  
-	if (fmod(fmod(sum_week[count_week] + add,(FLT_MAX)), FLT_MAX) != fmod(fmod(sum_week[count_week],FLT_MAX)+ fmod(add,FLT_MAX),FLT_MAX))
+	if (fmod(sum_week[count_week] + add,(FLT_MAX)) != fmod(fmod(sum_week[count_week],FLT_MAX)+ fmod(add,FLT_MAX),FLT_MAX))
 	{
 		sum_week_overflow_counter[count_week]++;
 		sum_week[count_week] = (add-(FLT_MAX - sum_week[count_week]));
@@ -146,7 +146,7 @@ void Blood_S_L::add_to_sum(float add)
 		sum_week[count_week] = sum_week[count_week] + add;
 	}
 	//checks if the sum overflow the float by using (a+b)mod n = (a mod n + b mod n) mod n  
-	if (fmod(fmod(sum_day[count_day] + add, (FLT_MAX)), FLT_MAX) != fmod(fmod(sum_day[count_day], FLT_MAX) + fmod(add, FLT_MAX), FLT_MAX))
+	if (fmod(sum_day[count_day] + add, (FLT_MAX)) != fmod(fmod(sum_day[count_day], FLT_MAX) + fmod(add, FLT_MAX), FLT_MAX))
 	{
 		sum_day_overflow_counter[count_day]++;
 		sum_day[count_day] = (add - (FLT_MAX - sum_day[count_day]));
@@ -163,7 +163,7 @@ void Blood_S_L::add_to_sum(float add)
 int Blood_S_L::delta()
 {
 	float temp = 0;
-	int day;
+	int day = 0;
 	if (count_day > 0)
 	{
 		for (int index = count_day; index > 0; index--)
@@ -190,32 +190,35 @@ void Blood_S_L::read_in()
 		while (!done_today)
 		{			
 			cin.clear();
-			if (cin >> temp && temp > 0)
+			if (cin >> temp )
 			{
-				/*cout << "inside the temp " << endl;*/
-				add_to_sum(temp);
-				if (max_day[count_day] < temp)
+				if (temp > 0)
 				{
-					/*cout << "inside max_day check " << endl;*/
-					max_day[count_day] = temp;
+					/*cout << "inside the temp " << endl;*/
+					add_to_sum(temp);
+					if (max_day[count_day] < temp)
+					{
+						/*cout << "inside max_day check " << endl;*/
+						max_day[count_day] = temp;
+					}
+					if (min_day[count_day] > temp || min_day[count_day] == temp)
+					{
+						/*cout << "inside mid_day check " << endl;*/
+						min_day[count_day] = temp;
+					}
+					if (max_week[count_week] < max_day[count_day])
+					{
+						/*cout << "inside max_week check " << endl;*/
+						max_week[count_week] = max_day[count_day];
+					}
+					if (min_week[count_week] > min_day[count_day] || min_week[count_week] == min_day[count_day])
+					{
+						/*cout << "inside mid_week check " << endl;*/
+						min_week[count_week] = min_day[count_day];
+					}					
+					bL_Count_Day[count_day]++;
+					bL_Count_week[count_week]++;
 				}
-				if (min_day[count_day] > temp || min_day[count_day] == temp)
-				{
-					/*cout << "inside mid_day check " << endl;*/
-					min_day[count_day] = temp;
-				}
-				if (max_week[count_week] < max_day[count_day])
-				{
-					/*cout << "inside max_week check " << endl;*/
-					max_week[count_week] = max_day[count_day];
-				}
-				if (min_week[count_week] > min_day[count_day] || min_week[count_week] == min_day[count_day])
-				{
-					/*cout << "inside mid_week check " << endl;*/
-					min_week[count_week] = min_day[count_day];
-				}
-				bL_Count_Day[count_day]++;
-				bL_Count_week[count_week]++;
 			}
 			else
 			{
